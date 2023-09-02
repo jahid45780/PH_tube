@@ -31,6 +31,7 @@ const handleCategory = async() =>{
  // video show container
  // sort dta
   const categoriesVideo = async (id)=>{
+   sortVideo= false;
    const res = await fetch(`https://openapi.programming-hero.com/api/videos/category/${id}`);
    const data = await res.json();
    thenVideo = data.data;
