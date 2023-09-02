@@ -1,3 +1,6 @@
+ // extra code
+ let sortVideo = false;
+
 const handleCategory = async() =>{
     
     const res = await fetch("https://openapi.programming-hero.com/api/videos/categories");
@@ -27,12 +30,14 @@ const handleCategory = async() =>{
 
 const handleLoadNews = async (categoryId) => {
 
+
 const res = await fetch(`  https://openapi.programming-hero.com/api/videos/category/${categoryId} `);
 const data = await res.json();
 
 const videoContainer = document.getElementById('video-container');
 videoContainer.innerHTML=' ';
-
+ // if sort
+ 
 
 // error show container
 
@@ -46,14 +51,28 @@ else{
 
 
 data.data.forEach((news)=>{
+   // console.log(news.others.posted_date);
+let timeShow = news.others.posted_date;
+let hours = Math.floor(timeShow/3600 );
+let min = Math.floor((timeShow - (hours*60*60) )/60 );
+
+
 
 const div = document.createElement('div');
 div.innerHTML =`
 
 
-<div class="card   bg-base-100 shadow-xl">
- <div> <img class="w-full h-60" src= ${news?.thumbnail } alt="Shoes" /> </div>
 
+<div class="card   bg-base-100 shadow-xl">
+ <div class="relative" > <img class="w-full h-60" src= ${news?.thumbnail } alt="Shoes" /> 
+ 
+${ timeShow?`  <span class=" absolute right-1 bottom-1 py-1 px-3 inline-block rounded bg-gray-800 text-white bg-opacity-80 ">
+ 
+${hours} hours ${ min } min    </span> `:'' }
+
+ 
+ </div>
+ 
 
 
 <div class=" flex flex-row gap-5 ">
@@ -94,9 +113,52 @@ videoContainer.appendChild(div);
 
 };
 
+
+ // sort btn
+
+ const sortContent = ()=>{
+   sortVideo= true;
+   handleLoadNews()
+
+
+ } 
+
  
  handleCategory()
  handleLoadNews('1000');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
  
