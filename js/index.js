@@ -1,5 +1,7 @@
  // extra code
  let sortVideo = false;
+ let thenVideo 
+
 
 const handleCategory = async() =>{
     
@@ -12,7 +14,7 @@ const handleCategory = async() =>{
        div.innerHTML = `
        
        
-       <button onclick="handleLoadNews('${category.category_id}')" class="tab  bg-[#d6d4d4] text-2x0 ">${category.category} </button>
+       <button  onclick="categoriesVideo('${category.category_id}')" class="tab  bg-[#d6d4d4] text-2x0 ">${category.category} </button>
        
        
        `;
@@ -27,22 +29,69 @@ const handleCategory = async() =>{
 }
 
  // video show container
+ // sort dta
+  const categoriesVideo = async (id)=>{
+   const res = await fetch(`https://openapi.programming-hero.com/api/videos/category/${id}`);
+   const data = await res.json();
+   thenVideo = data.data;
+   handleLoadNews();
+  }
+
 
 const handleLoadNews = async (categoryId) => {
 
+ // remove json
 
-const res = await fetch(`  https://openapi.programming-hero.com/api/videos/category/${categoryId} `);
-const data = await res.json();
 
 const videoContainer = document.getElementById('video-container');
 videoContainer.innerHTML=' ';
  // if sort
- 
+ if(sortVideo){
+   let sortData = thenVideo.sort((a,b)=> {
+       let firstView = a.others.views.split('K')[0];
+
+
+       let firstHajer = parseInt(firstView.split('.')[0])*1000;
+       let firstSotok = parseInt(firstView.split('.')[1])*100;
+       if( !firstSotok ){
+         firstSotok =0 ;
+       }
+       let total1 = firstHajer + firstSotok;
+
+
+
+
+     let senondView = b.others.views.split('K')[0];
+
+
+     let secondHajer = parseInt(senondView.split('.')[0])*1000;
+     let secondSotok = parseInt(senondView.split('.')[1])*100;
+     if(!secondSotok){
+      secondSotok =0;
+
+     }
+
+     let total2 = secondHajer + secondSotok;
+
+     if(total1 > total2){
+      return 1;
+     }
+  else{
+    return -1;
+  }
+
+   });
+
+ // extra code
+ thenVideo = sortData.reverse()
+
+ }
+
 
 // error show container
 
 const errorContainer = document.getElementById('error-container');
-if(data.data.length == 0){
+if(thenVideo.length == 0){
     errorContainer.classList.remove('hidden');
 } 
 else{
@@ -50,7 +99,7 @@ else{
 }
 
 
-data.data.forEach((news)=>{
+thenVideo.forEach((news)=>{
    // console.log(news.others.posted_date);
 let timeShow = news.others.posted_date;
 let hours = Math.floor(timeShow/3600 );
@@ -121,11 +170,13 @@ videoContainer.appendChild(div);
    handleLoadNews()
 
 
+
  } 
 
  
  handleCategory()
- handleLoadNews('1000');
+ categoriesVideo('1000')
+ 
 
 
 
