@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="cupcake" >
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+<link rel="shortcut icon" href="img/Logo.png" type="image/x-icon">
+    <!-- daisy UI -->
+ 
+<link href="https://cdn.jsdelivr.net/npm/daisyui@3.6.4/dist/full.css" rel="stylesheet" type="text/css" />
+<script src="https://cdn.tailwindcss.com"></script>   
+
+    <title>PHero-tube</title>
+</head>
+<body>
+    
+    <main>
+
+        <div class="navbar my-5  bg-base-100">
+            <div class=" flex-1" >
+              <img src="img/Logo.png" alt="">
+            </div>
+
+            <div class=" flex-auto" >
+                <button class="px-4 py-2 text-2xl bg-[#d6d4d4] rounded-lg" > Sort by view </button>
+            </div>
+
+            <div class="flex-none">
+              <button id="btn-blog" class=" bg-[#FF1F3D] px-4 py-2 text-2xl text-white rounded-lg">
+                Blog
+              </button>
+            </div>
+          </div>
+          <hr class="m-2">
+
+
+          <div class="tab-container w-full">
+            <div
+              class="tabs tabs p-5 w-96 m-auto text-center flex gap-5 justify-center"
+              id="tab-container"
+            >
+         
+            </div>
+          </div>
+
+ <!-- video show container -->
+
+          <div id="video-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4  gap-3 m-8" >
+
+         
+
+
+          </div>
+<!-- erro  sec -->
+
+    <div id="error-container" class="hidden mt-5" >
+
+      <img class="w-64 mx-auto" src="img/Icon.png" alt="">
+      <p class="text-5xl text-center mt-4"> Oops!! Sorry User, This is <br> no Content Here </p>
+
+
+    </div>
+
+
+    </main>
+
+
+<script src="js/bolog.js"></script>
+<script src="js/index.js"></script>
+
+
+</body>
+</html>
